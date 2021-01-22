@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Graphs of images",
+  "name": "A proof of concept to demonstrate graphs network with images nodes.",
   "icons": [
     {
       "src": "favicon.ico",
