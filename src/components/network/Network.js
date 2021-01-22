@@ -41,7 +41,7 @@ container.pivot.y = container.height / 2;
 
 const spritesheetsList = Array.from(
   Array(15),
-  (x, i) => `images/spritesheets/spritesheet-${i + 1}.json`
+  (x, i) => `/images/spritesheets/spritesheet-${i + 1}.json`
 );
 
 spritesheetsList.forEach((d) => {
