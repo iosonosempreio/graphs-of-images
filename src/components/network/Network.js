@@ -41,11 +41,11 @@ container.pivot.y = container.height / 2;
 
 const spritesheetsList = Array.from(
   Array(15),
-  (x, i) => `/images/spritesheets/spritesheet-${i + 1}.json`
+  (x, i) => `${process.env.PUBLIC_URL}/images/spritesheets/spritesheet-${i + 1}.json`
 );
 
 spritesheetsList.forEach((d) => {
-  app.loader.add(process.env.PUBLIC_URL + d);
+  app.loader.add(d);
 });
 app.loader.onProgress.add((e) => {
   console.log(e.progress + "%");
@@ -148,7 +148,6 @@ function Network() {
       nodes = data.nodes.filter((n) => n.attributes.type === "post");
       hashtags = data.nodes.filter((n) => n.attributes.type === "hashtag");
       missings = data.nodes.filter((n) => n.attributes.type === "postNoImage");
-      console.log(missings);
       size.domain(extent(nodes, d=>d.size)).range([35,200])
       container.current.appendChild(app.view);
       app.loader.load();
