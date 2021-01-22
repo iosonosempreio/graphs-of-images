@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -b gh-pages -d build",
     "spritesheets": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 256 --resizeHeight 256 --width 4096 --height 4096"
   },
   "eslintConfig": {
