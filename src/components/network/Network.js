@@ -144,7 +144,7 @@ app.loader.onComplete.add(async () => {
 function Network() {
   const container = useRef();
   useEffect(() => {
-    json(process.env.PUBLIC_URL + "data.json").then((data) => {
+    json(process.env.PUBLIC_URL + "/data.json").then((data) => {
       nodes = data.nodes.filter((n) => n.attributes.type === "post");
       hashtags = data.nodes.filter((n) => n.attributes.type === "hashtag");
       missings = data.nodes.filter((n) => n.attributes.type === "postNoImage");
