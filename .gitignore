@@ -128,3 +128,4 @@ yarn-error.log*
 
 public/images/originals/*
 public/images/spritesheets/*
+public/data.json
