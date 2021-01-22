@@ -1,5 +1,6 @@
 {
   "name": "graphs-of-images",
+  "homepage": "https://iosonosempreio.github.io/graphs-of-images",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,6 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "spritesheets": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 256 --resizeHeight 256 --width 4096 --height 4096"
   },
   "eslintConfig": {
@@ -38,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
