@@ -1,20 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import * as PIXI from "pixi.js";
-// import { json } from "d3";
+import { json } from "d3";
 import { Viewport } from "pixi-viewport";
 
 const width = window.innerWidth, height = window.innerHeight;
+let data, nodes, edges;
 
 let app = new PIXI.Application({
   backgroundColor: 0xf1f1f1,
   resolution: window.devicePixelRatio || 1,
+  width: width,
+  height: height
 });
 
 const viewport = new Viewport({
-  // center: new PIXI.Point(-width/2, -height/2),
   passiveWheel: false,
   stopPropagation: true,
-  // divWheel: this._rootNode,
   screenWidth: width,
   screenHeight: height,
   worldWidth: width,
@@ -43,7 +44,6 @@ const spritesheetsList = Array.from( Array(15), (x,i)=>`images/spritesheets/spri
 
 spritesheetsList.forEach((d) => {
   app.loader.add(process.env.PUBLIC_URL + d);
-  // app.loader.add(d.replace(".json", ".png"));
 });
 app.loader.onProgress.add((e) => {
   console.log(e.progress + "%");
@@ -53,11 +53,20 @@ app.loader.onComplete.add(async () => {
   spritesheetsList.forEach((s) => {
     const sheet = app.loader.resources[s].spritesheet;
     for (let textureName in sheet.textures) {
+      // console.log(textureName)
       const texture = sheet.textures[textureName];
       const sprite = new PIXI.Sprite(texture);
 
-      sprite.x = -container.width / 2 + Math.random() * container.width;
-      sprite.y = -container.height / 2 + Math.random() * container.height;
+      const nodeData = nodes.find(n=>n.attributes.image===textureName)
+
+      if (nodeData) {
+        sprite.x = nodeData.x *0.5
+        sprite.y = nodeData.y *0.5
+      } else {
+        sprite.x = 0
+        sprite.y = 0
+      }
+
       sprite.anchor.x = 0.5;
       sprite.anchor.y = 0.5;
 
@@ -69,12 +78,15 @@ app.loader.onComplete.add(async () => {
     }
   });
 });
-app.loader.load();
 
 function Network() {
   const container = useRef();
   useEffect(() => {
-    container.current.appendChild(app.view);
+    json(process.env.PUBLIC_URL + "data.json").then(data=>{
+      nodes = data.nodes.filter(n=>n.attributes.type==="post")
+      container.current.appendChild(app.view);
+      app.loader.load();
+    })
   }, []);
 
   return <div ref={container}></div>;
