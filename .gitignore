@@ -127,5 +127,6 @@ yarn-debug.log*
 yarn-error.log*
 
 public/images/originals/*
+public/images/resized/*
 public/images/spritesheets/*
 public/data.json
