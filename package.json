@@ -22,7 +22,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build",
-    "spritesheets": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 256 --resizeHeight 256 --width 4096 --height 4096"
+    "spritesheets-resize": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 128 --resizeHeight 128 --width 4096 --height 4096",
+    "spritesheets": "gf-pack public/images/resized/*.jpg -p public/images/spritesheets --width 4096 --height 4096 --fuzz 1%"
   },
   "eslintConfig": {
     "extends": [
@@ -37,8 +38,8 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
       "last 1 firefox version",
+      "last 1 chrome version",
       "last 1 safari version"
     ]
   },
