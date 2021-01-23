@@ -11,9 +11,12 @@ let nodes, hashtags, missings;
 let app = new PIXI.Application({
   backgroundColor: 0xf1f1f1,
   resolution: window.devicePixelRatio || 1,
+  autoResize:true,
   width: width,
   height: height,
-  antialias: true
+  antialias: true,
+  powerPreference: 'high-performance',
+  resizeTo: window
 });
 
 const viewport = new Viewport({
@@ -28,8 +31,18 @@ const viewport = new Viewport({
 viewport.drag({ pressDrag: true, clampWheel: true }).pinch().wheel();
 app.stage.addChild(viewport);
 
-const container = new PIXI.Container();
-viewport.addChild(container);
+const graphicsContainer = new PIXI.Container();
+// Move container to the center
+graphicsContainer.x = app.screen.width / 2;
+graphicsContainer.y = app.screen.height / 2;
+
+// Center bunny sprite in local container coordinates
+graphicsContainer.pivot.x = graphicsContainer.width / 2;
+graphicsContainer.pivot.y = graphicsContainer.height / 2;
+
+viewport.addChild(graphicsContainer);
+
+const container = new PIXI.ParticleContainer();
 
 // Move container to the center
 container.x = app.screen.width / 2;
@@ -39,8 +52,10 @@ container.y = app.screen.height / 2;
 container.pivot.x = container.width / 2;
 container.pivot.y = container.height / 2;
 
+viewport.addChild(container);
+
 const spritesheetsList = Array.from(
-  Array(15),
+  Array(4),
   (x, i) => `${process.env.PUBLIC_URL}/images/spritesheets/spritesheet-${i + 1}.json`
 );
 
@@ -74,8 +89,9 @@ app.loader.onComplete.add(async () => {
     graphics.lineTo(l2_x2, l2_y2);
     graphics.closePath();
     // graphics.endFill();
+    console.log('created graphic')
   })
-  container.addChild(graphics);
+  graphicsContainer.addChild(graphics);
 
   hashtags.forEach((h) => {
     let style = new PIXI.TextStyle({
@@ -103,7 +119,8 @@ app.loader.onComplete.add(async () => {
     text.anchor.x = 0.5;
     text.alpha = h.size > 50 ? 1 : 0.5;
     // text.anchor.y = 0.5;
-    container.addChild(text);
+    graphicsContainer.addChild(text);
+    console.log('created graphic')
   });
 
   spritesheetsList.forEach((s) => {
@@ -137,8 +154,10 @@ app.loader.onComplete.add(async () => {
       sprite.scale.y = scale;
 
       container.addChild(sprite);
+      console.log('created sprite')
     }
   });
+  console.log('all elements created. Rendering...')
 });
 
 function Network() {
