@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build",
-    "spritesheets-resize": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 128 --resizeHeight 128 --width 4096 --height 4096",
+    "spritesheets-squared": "gf-pack public/images/originals/*.jpg -p public/images/spritesheets --resizeWidth 128 --resizeHeight 128 --width 4096 --height 4096 --fuzz 1%",
     "spritesheets": "gf-pack public/images/resized/*.jpg -p public/images/spritesheets --width 4096 --height 4096 --fuzz 1%"
   },
   "eslintConfig": {
